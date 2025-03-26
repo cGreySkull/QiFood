@@ -1,17 +1,18 @@
 import {Tabs} from "expo-router";
 import {Ionicons} from "@expo/vector-icons";
 import { View, Text } from "react-native";
+import CameraTabButton from "../components/CameraTabButton";
 
 export default function TabLayout() {
     return (
         
-        <Tabs screenOptions={{headerShown: false, tabBarShowLabel: false,
+        <Tabs screenOptions={{headerShown: false, tabBarShowLabel: true,
             tabBarStyle: {
                 height: 74,
                 borderTopLeftRadius: 12,
                 borderTopRightRadius: 12,
-                paddingBottom: 8,
-                paddingTop: 6,
+                paddingBottom: 10,
+                paddingTop: 10,
                 borderTopWidth: 0
             }
         }}>
@@ -22,38 +23,22 @@ export default function TabLayout() {
                 tabBarIcon: ({color , size, focused}) => (
                     <View style={{alignContent:'center', alignItems:'center'}}>
                         <Ionicons name={focused?"home":"home-outline"} size={size} color={color}/>
-                        <Text style={{fontWeight: focused?"600":"500"}}>Recipes</Text>
+                        
                     </View>
-                )
+                ), title: "Recipes"
             }} />
 
             <Tabs.Screen name="camera" options={{
-                tabBarIcon: ({color, size, focused}) => (
-                    <View style={{position:"absolute", top: -40, alignItems:"center"}}>
-                        <View style={{
-                            width: 65, height: 65,
-                            borderRadius: 65,
-                            backgroundColor: focused?'#1976D2':'#2196F3',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            borderColor: "#fff",
-                            borderWidth: 6
-                        }}>
-                            <Ionicons name="camera" size={size * 1.5} color="#fff"/>
-                            
-                        </View>
-                        <Text style={{fontWeight: focused?"600":"500"}}>Recipe</Text>
-                    </View>
-            ), tabBarItemStyle: {}
+                tabBarButton: (props) => <CameraTabButton {...props}/>,
+                tabBarItemStyle: {height: 74}
             }}/>
 
             <Tabs.Screen name="profile/index" options={{
                 tabBarIcon: ({color, size, focused}) => (
                     <View style={{alignContent:'center', alignItems:'center'}}>
                         <Ionicons name={focused?"person":"person-outline"} size={size} color={color}/>
-                        <Text style={{fontWeight: focused?"600":"500"}}>Profile</Text>
                     </View>
-                )
+                ), title: "My Profile"
             }}/>
 
             <Tabs.Screen name="profile/settings" options={{ href: null }} />

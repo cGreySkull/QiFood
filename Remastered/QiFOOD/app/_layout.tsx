@@ -2,7 +2,7 @@ import { Stack, Slot } from "expo-router";
 import { View } from "react-native";
 
 export default function RootLayout() {
-  const isLoggedIn = false;
+  const isLoggedIn = true;
 
   if (!isLoggedIn){
     return (
