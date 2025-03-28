@@ -20,6 +20,8 @@ export default function TabLayout() {
             <Tabs.Screen name="index" options={{ href: null }} />
 
             <Tabs.Screen name="recipes/index" options={{
+                headerShown: true, lazy: true, headerTitle: "Your Recipes",
+                headerTitleAlign: "center",
                 tabBarIcon: ({color , size, focused}) => (
                     <View style={{alignContent:'center', alignItems:'center'}}>
                         <Ionicons name={focused?"home":"home-outline"} size={size} color={color}/>
@@ -29,11 +31,15 @@ export default function TabLayout() {
             }} />
 
             <Tabs.Screen name="camera" options={{
+                headerShown: true, lazy: true, headerTitle: "Take a picture",
+                headerTitleAlign: "center",
                 tabBarButton: (props) => <CameraTabButton {...props}/>,
                 tabBarItemStyle: {height: 74}
             }}/>
 
             <Tabs.Screen name="profile/index" options={{
+                headerShown: true, lazy: true, headerTitle: "Your Profile",
+                headerTitleAlign: "center",
                 tabBarIcon: ({color, size, focused}) => (
                     <View style={{alignContent:'center', alignItems:'center'}}>
                         <Ionicons name={focused?"person":"person-outline"} size={size} color={color}/>
