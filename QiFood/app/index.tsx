@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "expo-router";
-import { LinearGradient } from "expo-linear-gradient";
 
 export default function Login() {
+    const { login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
@@ -27,10 +28,14 @@ export default function Login() {
     return true;
   };
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (validateFields()) {
-      // Add login logic here
-      console.log("Logging in with:", { email, password, rememberMe });
+        const result = await login(email, password);
+        if(result.success){
+            router.replace("/food");
+        } else {
+            setErrorMessage("Invalid email or password.");
+        }
     }
   };
 
@@ -39,10 +44,9 @@ export default function Login() {
   };
 
   return (
-    <LinearGradient colors={['#22AA66', '#007BFF']} style={styles.gradient}>
       <View style={styles.container}>
         {/* Brand */}
-        <Text style={styles.brand}>QiFood</Text>
+        <Text style={styles.brand}>Welcome to QiFood</Text>
 
         {/* Error Message */}
         {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
@@ -50,7 +54,7 @@ export default function Login() {
         {/* Email Field */}
         <TextInput
           style={styles.input}
-          placeholder="Email"
+          placeholder="E-mail"
           value={email}
           onChangeText={setEmail}
           keyboardType="email-address"
@@ -79,13 +83,12 @@ export default function Login() {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.registerButton]} onPress={handleRegister}>
-          <Text style={styles.buttonText}>Register</Text>
+          <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
 
         {/* Footer */}
-        <Text style={styles.footer}>© 2023 QiFood. All rights reserved.</Text>
+        <Text style={styles.footer}>© 2025 LSFD. All rights reserved.</Text>
       </View>
-      </LinearGradient>
   );
 }
 
@@ -94,7 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    backgroundColor: "#22AA66",
+    backgroundColor: "#EEFFEE",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
   brand: {
     fontSize: 32,
     fontWeight: "bold",
-    color: "#fff",
+    color: "#111",
     marginBottom: 40,
   },
   errorMessage: {
@@ -147,7 +150,7 @@ const styles = StyleSheet.create({
   },
   rememberMeText: {
     fontSize: 16,
-    color: "#fff",
+    color: "#000",
   },
   button: {
     width: "100%",
@@ -169,6 +172,6 @@ const styles = StyleSheet.create({
   footer: {
     marginTop: 30,
     fontSize: 14,
-    color: "#fff",
+    color: "#888",
   },
 });

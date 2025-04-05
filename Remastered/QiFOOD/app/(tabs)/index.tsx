@@ -1,4 +1,5 @@
 import {View, Text, Image, FlatList, StyleSheet} from "react-native";
+import { useAuth } from "../../context/AuthContext";
 
 const MOCK_USER = {
     name: 'John Doe',
@@ -10,9 +11,10 @@ const MOCK_USER = {
 };
 
 export default function HomePage() {
+    const { user } = useAuth(); 
     const { name, profilePic, recipes } = MOCK_USER;
     const hasRecipes = recipes.length > 0;
-  
+
     return (
       <View style={styles.container}>
         {/* Header */}
@@ -25,7 +27,7 @@ export default function HomePage() {
             )}
           </View>
           <View>
-            <Text style={styles.greeting}>Hello, {name} 👋</Text>
+            <Text style={styles.greeting}>Hello, {user.first_name + ' ' + user.last_name} 👋</Text>
             <Text style={styles.recipeCount}>
               Recipes saved: {recipes.length}
             </Text>
